@@ -47,6 +47,27 @@ public final class Config implements ConfigurationPart {
         }
     }
 
+    @Serializable
+    public static class FakeJoin {
+        @Comment("Whether to send a fake join message when a player unvanishes")
+        public boolean enabled = true;
+        @Comment("The message to send. Supports MiniMessage colors and <player> placeholder.")
+        public String message = "<yellow><player> joined the game";
+    }
+
+    @Serializable
+    public static class FakeLeave {
+        @Comment("Whether to send a fake leave message when a player vanishes")
+        public boolean enabled = true;
+        @Comment("The message to send. Supports MiniMessage colors and <player> placeholder.")
+        public String message = "<yellow><player> left the game";
+    }
+
+    @Named("fake-join")
+    public static FakeJoin fakeJoin = new FakeJoin();
+    @Named("fake-leave")
+    public static FakeLeave fakeLeave = new FakeLeave();
+
     @Comment("""
             How many threads should we use for database queries?
             Don't change it, if you don't know what it does!

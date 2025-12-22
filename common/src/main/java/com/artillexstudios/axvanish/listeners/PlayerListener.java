@@ -94,7 +94,9 @@ public final class PlayerListener implements Listener {
                 .build()
         );
 
-        event.setJoinMessage(null);
+        if (user.vanished()) {
+            event.setJoinMessage(null);
+        }
     }
 
     @EventHandler
