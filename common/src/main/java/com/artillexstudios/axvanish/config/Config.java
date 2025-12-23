@@ -56,6 +56,10 @@ public final class Config implements ConfigurationPart {
     @Named("fake-leave")
     public static boolean fakeLeave = true;
 
+    @Comment("Whether to automatically vanish players with the axvanish.vanish.onjoin permission when they join")
+    @Named("auto-vanish-on-join")
+    public static boolean autoVanishOnJoin = true;
+
     @Comment("""
             How many threads should we use for database queries?
             Don't change it, if you don't know what it does!

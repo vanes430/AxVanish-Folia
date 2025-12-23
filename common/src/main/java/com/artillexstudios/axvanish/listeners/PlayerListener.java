@@ -89,7 +89,8 @@ public final class PlayerListener implements Listener {
             return;
         }
 
-        user.update(user.vanished(), new VanishContext.Builder()
+        boolean vanished = user.vanished() || (Config.autoVanishOnJoin && player.hasPermission("axvanish.vanish.onjoin"));
+        user.update(vanished, new VanishContext.Builder()
                 .withSource(JoinVanishSource.INSTANCE)
                 .build()
         );
