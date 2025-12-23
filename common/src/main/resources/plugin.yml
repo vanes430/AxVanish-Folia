@@ -10,6 +10,9 @@ permissions:
   axvanish.vanish:
     description: "Allows the player to use the vanish command"
     default: op
+  axvanish.vanish.onjoin:
+    description: "Automatically vanish the player when they join the server"
+    default: false
   axvanish.notify:
     description: "Allows the player to receive notifications when someone vanishes or unvanishes"
     default: op

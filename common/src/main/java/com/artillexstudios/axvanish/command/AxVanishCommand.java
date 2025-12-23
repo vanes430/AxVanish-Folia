@@ -199,12 +199,7 @@ public final class AxVanishCommand {
 
             // Send fake join/leave message to EVERYONE (including self)
             if (fakeEnabled) {
-                String message = fakeMessage;
-                if (ClassUtils.INSTANCE.classExists("me.clip.placeholderapi.PlaceholderAPI")) {
-                    message = PlaceholderAPI.setPlaceholders(user.onlinePlayer() == null ? user.player() : user.onlinePlayer(), message);
-                }
-                Component formatted = StringUtils.format(message, Placeholder.unparsed("player", name));
-                WrapperRegistry.SERVER_PLAYER.map(player).message(formatted);
+                MessageUtils.sendMessage(player, fakeMessage, Placeholder.unparsed("player", name));
             }
         }
     }

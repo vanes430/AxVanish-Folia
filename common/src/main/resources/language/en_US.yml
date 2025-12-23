@@ -17,6 +17,7 @@ vanish-broadcast: "<#00FF00><player> has vanished!"
 unvanish-message: "<#00FF00>You have successfully unvanished!"
 unvanish-broadcast: "<#00FF00><player> has unvanished!"
 unvanish-no-permission: "<white><player></white> <#FF0000>has no vanish permission, but joined with vanish! We have <white>unvanished</white> them!"
+vanish-join-notification: "<#00FF00><player> joined while vanished!"
 
 # Do not touch!
 config-version: 1

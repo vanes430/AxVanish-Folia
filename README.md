@@ -14,6 +14,7 @@ A powerful and flexible vanish plugin designed for Folia and Paper.
 ## Permissions
 
 - `axvanish.vanish`: Basic permission to vanish.
+- `axvanish.vanish.onjoin`: Automatically vanish the player when they join the server.
 - `axvanish.command.toggle.other`: Permission to toggle vanish for others.
 - `axvanish.command.admin.reload`: Permission to reload the config.
 - `axvanish.command.admin.version`: Permission to see version info.

@@ -47,6 +47,7 @@ public final class Language implements ConfigurationPart {
     public static String unvanishMessage = "<#00FF00>You have successfully unvanished!";
     @Named("unvanish-broadcast")
     public static String unvanishBroadcast = "<#00FF00><player> has unvanished!";
+
     @Named("unvanish-no-permission")
     public static String unvanishNoPermission = "<white><player></white> <#FF0000>has no vanish permission, but joined with vanish! We have <white>unvanished</white> them!";
 
