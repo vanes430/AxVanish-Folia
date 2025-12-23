@@ -4,6 +4,7 @@ import com.artillexstudios.axapi.utils.RandomStringGenerator;
 import com.artillexstudios.axapi.scheduler.Scheduler;
 import com.artillexstudios.axvanish.api.AxVanishAPI;
 import com.artillexstudios.axvanish.api.event.UserVanishStateChangeEvent;
+import com.artillexstudios.axvanish.api.users.User;
 import org.bukkit.block.Block;
 import org.bukkit.block.Container;
 import org.bukkit.entity.Entity;
