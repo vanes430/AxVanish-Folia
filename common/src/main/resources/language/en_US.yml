@@ -1,0 +1,22 @@
+# The prefix we should use before messages sent by the plugin.
+prefix: "<b><gradient:#CB2D3E:#EF473A>AxVanish</gradient></b> "
+
+fake-leave: "<yellow><player> left the game"
+fake-join: "<yellow><player> joined the game"
+
+reload-success: "<#00FF00>Successfully reloaded the configurations of the plugin in <white><time></white>ms!"
+reload-fail: "<#FF0000>There were some issues while reloading file(s): <white><files></white>! Please check out the console for more information! <br>Reload done in: <white><time></white>ms!"
+
+error-user-not-loaded: "<#FF0000>Your userdata has not loaded yet! Please try again in a moment!"
+error-vanished: "<#FF0000>You can't do that while vanished!"
+error-not-high-enough-priority: "<#FF0000>Your group's priority isn't high enough to change that user's vanish state-"
+
+vanish-message: "<#00FF00>You have successfully vanished!"
+vanish-broadcast: "<#00FF00><player> has vanished!"
+
+unvanish-message: "<#00FF00>You have successfully unvanished!"
+unvanish-broadcast: "<#00FF00><player> has unvanished!"
+unvanish-no-permission: "<white><player></white> <#FF0000>has no vanish permission, but joined with vanish! We have <white>unvanished</white> them!"
+
+# Do not touch!
+config-version: 1

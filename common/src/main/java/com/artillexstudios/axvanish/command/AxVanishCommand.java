@@ -63,7 +63,7 @@ public final class AxVanishCommand {
 
                     User user = AxVanishAPI.instance().getUserIfLoadedImmediately(player);
                     if (user == null) {
-                        MessageUtils.sendMessage(player, Language.prefix, Language.error.userNotLoaded);
+                        MessageUtils.sendMessage(player, Language.prefix, Language.errorUserNotLoaded);
                         return;
                     }
                     if (Config.debug) {
@@ -82,11 +82,11 @@ public final class AxVanishCommand {
                     }
 
                     if (previous) {
-                        MessageUtils.sendMessage(player, Language.prefix, Language.unVanish.unVanish);
-                        broadcastVanishMessage(user, Language.unVanish.broadcast, Language.unVanish.fakeJoin, Config.fakeJoin);
+                        MessageUtils.sendMessage(player, Language.prefix, Language.unvanishMessage);
+                        broadcastVanishMessage(user, Language.unvanishBroadcast, Language.fakeJoin, Config.fakeJoin);
                     } else {
-                        MessageUtils.sendMessage(player, Language.prefix, Language.vanish.vanish);
-                        broadcastVanishMessage(user, Language.vanish.broadcast, Language.vanish.fakeLeave, Config.fakeLeave);
+                        MessageUtils.sendMessage(player, Language.prefix, Language.vanishMessage);
+                        broadcastVanishMessage(user, Language.vanishBroadcast, Language.fakeLeave, Config.fakeLeave);
                     }
                 })
         );
@@ -104,7 +104,7 @@ public final class AxVanishCommand {
                     AxVanishAPI.instance().user(offlinePlayer.getUniqueId()).thenAccept(user -> {
                         if (source instanceof User senderUser) {
                             if (senderUser.group() != null && user.group() != null && senderUser.group().priority() < user.group().priority()) {
-                                MessageUtils.sendMessage(sender, Language.prefix, Language.error.notHighEnoughGroup);
+                                MessageUtils.sendMessage(sender, Language.prefix, Language.errorNotHighEnoughPriority);
                                 return;
                             }
                         }
@@ -121,11 +121,11 @@ public final class AxVanishCommand {
                         }
 
                         if (previous) {
-                            MessageUtils.sendMessage(sender, Language.prefix, Language.unVanish.unVanish);
-                            broadcastVanishMessage(user, Language.unVanish.broadcast, Language.unVanish.fakeJoin, Config.fakeJoin);
+                            MessageUtils.sendMessage(sender, Language.prefix, Language.unvanishMessage);
+                            broadcastVanishMessage(user, Language.unvanishBroadcast, Language.fakeJoin, Config.fakeJoin);
                         } else {
-                            MessageUtils.sendMessage(sender, Language.prefix, Language.vanish.vanish);
-                            broadcastVanishMessage(user, Language.vanish.broadcast, Language.vanish.fakeLeave, Config.fakeLeave);
+                            MessageUtils.sendMessage(sender, Language.prefix, Language.vanishMessage);
+                            broadcastVanishMessage(user, Language.vanishBroadcast, Language.fakeLeave, Config.fakeLeave);
                         }
                     });
                 })
@@ -180,9 +180,9 @@ public final class AxVanishCommand {
                     }
 
                     if (failed.isEmpty()) {
-                        MessageUtils.sendMessage(sender, Language.prefix, Language.reload.success, Placeholder.unparsed("time", Long.toString((System.nanoTime() - start) / 1_000_000)));
+                        MessageUtils.sendMessage(sender, Language.prefix, Language.reloadSuccess, Placeholder.unparsed("time", Long.toString((System.nanoTime() - start) / 1_000_000)));
                     } else {
-                        MessageUtils.sendMessage(sender, Language.prefix, Language.reload.fail, Placeholder.unparsed("time", Long.toString((System.nanoTime() - start) / 1_000_000)), Placeholder.unparsed("files", String.join(", ", failed)));
+                        MessageUtils.sendMessage(sender, Language.prefix, Language.reloadFail, Placeholder.unparsed("time", Long.toString((System.nanoTime() - start) / 1_000_000)), Placeholder.unparsed("files", String.join(", ", failed)));
                     }
                 })
         );
@@ -192,14 +192,12 @@ public final class AxVanishCommand {
         String name = user.player().getName() != null ? user.player().getName() : "Unknown";
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.getUniqueId().equals(user.player().getUniqueId())) {
-                continue;
-            }
-
-            if (player.hasPermission("axvanish.notify")) {
+            // Send staff notification (excluding self to avoid double messages for the vanished player)
+            if (player.hasPermission("axvanish.notify") && !player.getUniqueId().equals(user.player().getUniqueId())) {
                 MessageUtils.sendMessage(player, Language.prefix, broadcastMessage, Placeholder.unparsed("player", name));
             }
 
+            // Send fake join/leave message to EVERYONE (including self)
             if (fakeEnabled) {
                 String message = fakeMessage;
                 if (ClassUtils.INSTANCE.classExists("me.clip.placeholderapi.PlaceholderAPI")) {

@@ -85,7 +85,7 @@ public final class PlayerListener implements Listener {
             );
 
             AxVanishAPI.instance().online().stream().filter(other -> other.canSee(user) && other.onlinePlayer().hasPermission("axvanish.notify")).forEach(other ->
-                  MessageUtils.sendMessage(other.onlinePlayer(), Language.prefix, Language.unVanish.hadNoVanishPermission, Placeholder.unparsed("player", player.getName())));
+                  MessageUtils.sendMessage(other.onlinePlayer(), Language.prefix, Language.unvanishNoPermission, Placeholder.unparsed("player", player.getName())));
             return;
         }
 

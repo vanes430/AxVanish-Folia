@@ -5,7 +5,6 @@ import com.artillexstudios.axapi.config.annotation.Comment;
 import com.artillexstudios.axapi.config.annotation.ConfigurationPart;
 import com.artillexstudios.axapi.config.annotation.Ignored;
 import com.artillexstudios.axapi.config.annotation.Named;
-import com.artillexstudios.axapi.config.annotation.Serializable;
 import com.artillexstudios.axapi.utils.YamlUtils;
 import com.artillexstudios.axapi.utils.logging.LogUtils;
 import com.artillexstudios.axvanish.AxVanishPlugin;
@@ -18,45 +17,38 @@ import java.nio.file.Path;
 public final class Language implements ConfigurationPart {
     private static final Path LANGUAGE_DIRECTORY = FileUtils.PLUGIN_DIRECTORY.resolve("language");
     private static final Language INSTANCE = new Language();
+
     @Comment("The prefix we should use before messages sent by the plugin.")
     public static String prefix = "<b><gradient:#CB2D3E:#EF473A>AxVanish</gradient></b> ";
-    public static Reload reload = new Reload();
-    public static Error error = new Error();
-    public static Vanish vanish = new Vanish();
-    @Named("unvanish")
-    public static UnVanish unVanish = new UnVanish();
 
-    @Serializable
-    public static class Reload {
-        public String success = "<#00FF00>Successfully reloaded the configurations of the plugin in <white><time></white>ms!";
-        public String fail = "<#FF0000>There were some issues while reloading file(s): <white><files></white>! Please check out the console for more information! <br>Reload done in: <white><time></white>ms!";
-    }
+    @Named("fake-leave")
+    public static String fakeLeave = "<yellow><player> left the game";
+    @Named("fake-join")
+    public static String fakeJoin = "<yellow><player> joined the game";
 
-    @Serializable
-    public static class Error {
-        public String userNotLoaded = "<#FF0000>Your userdata has not loaded yet! Please try again in a moment!";
-        public String vanished = "<#FF0000>You can't do that while vanished!";
-        public String notHighEnoughGroup = "<#FF0000>Your group's priority isn't high enough to change that user's vanish state-";
-    }
+    @Named("reload-success")
+    public static String reloadSuccess = "<#00FF00>Successfully reloaded the configurations of the plugin in <white><time></white>ms!";
+    @Named("reload-fail")
+    public static String reloadFail = "<#FF0000>There were some issues while reloading file(s): <white><files></white>! Please check out the console for more information! <br>Reload done in: <white><time></white>ms!";
 
-    @Serializable
-    public static class Vanish {
-        @Named("message")
-        public String vanish = "<#00FF00>You have successfully vanished!";
-        public String broadcast = "<#00FF00><player> has vanished!";
-        @Named("fake-leave")
-        public String fakeLeave = "<yellow><player> left the game";
-    }
+    @Named("error-user-not-loaded")
+    public static String errorUserNotLoaded = "<#FF0000>Your userdata has not loaded yet! Please try again in a moment!";
+    @Named("error-vanished")
+    public static String errorVanished = "<#FF0000>You can't do that while vanished!";
+    @Named("error-not-high-enough-priority")
+    public static String errorNotHighEnoughPriority = "<#FF0000>Your group's priority isn't high enough to change that user's vanish state-";
 
-    @Serializable
-    public static class UnVanish {
-        @Named("message")
-        public String unVanish = "<#00FF00>You have successfully unvanished!";
-        public String broadcast = "<#00FF00><player> has unvanished!";
-        public String hadNoVanishPermission = "<white><player></white> <#FF0000>has no vanish permission, but joined with vanish! We have <white>unvanished</white> them!";
-        @Named("fake-join")
-        public String fakeJoin = "<yellow><player> joined the game";
-    }
+    @Named("vanish-message")
+    public static String vanishMessage = "<#00FF00>You have successfully vanished!";
+    @Named("vanish-broadcast")
+    public static String vanishBroadcast = "<#00FF00><player> has vanished!";
+
+    @Named("unvanish-message")
+    public static String unvanishMessage = "<#00FF00>You have successfully unvanished!";
+    @Named("unvanish-broadcast")
+    public static String unvanishBroadcast = "<#00FF00><player> has unvanished!";
+    @Named("unvanish-no-permission")
+    public static String unvanishNoPermission = "<white><player></white> <#FF0000>has no vanish permission, but joined with vanish! We have <white>unvanished</white> them!";
 
     @Comment("Do not touch!")
     public static int configVersion = 1;
@@ -93,7 +85,7 @@ public final class Language implements ConfigurationPart {
         }
 
         // The user might have changed the config
-        if (this.config == null || (lastLanguage != null && lastLanguage.equalsIgnoreCase(Config.language))) {
+        if (this.config == null || (lastLanguage != null && !lastLanguage.equalsIgnoreCase(Config.language))) {
             lastLanguage = shouldDefault ? "en_US" : Config.language;
             if (Config.debug) {
                 LogUtils.debug("Set lastLanguage to {}", lastLanguage);

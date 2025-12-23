@@ -130,7 +130,7 @@ public final class User implements com.artillexstudios.axvanish.api.users.User {
             return;
         }
 
-        MessageUtils.sendMessage(player, Language.prefix, Language.error.vanished);
+        MessageUtils.sendMessage(player, Language.prefix, Language.errorVanished);
         cancelCooldown.addCooldown(this, Config.messageCooldown);
     }
 }
