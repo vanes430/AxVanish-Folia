@@ -52,6 +52,14 @@ public final class VanishStateManager {
                 player.removeMetadata("vanished", this.plugin);
             }
             player.setVisibleByDefault(!current);
+            try {
+                player.setCollidable(!current);
+            } catch (NoSuchMethodError ignored) {
+            }
+            try {
+                player.setAffectsSpawning(!current);
+            } catch (NoSuchMethodError ignored) {
+            }
         }
 
         List<User> onlineUsers = AxVanishAPI.instance().online();

@@ -1,10 +1,13 @@
 package com.artillexstudios.axvanish.api.group.capabilities;
 
 import com.artillexstudios.axapi.utils.RandomStringGenerator;
+import com.artillexstudios.axapi.scheduler.Scheduler;
 import com.artillexstudios.axvanish.api.AxVanishAPI;
-import com.artillexstudios.axvanish.api.users.User;
+import com.artillexstudios.axvanish.api.event.UserVanishStateChangeEvent;
 import org.bukkit.block.Block;
 import org.bukkit.block.Container;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -49,6 +52,27 @@ public final class PreventCapability extends VanishCapability implements Listene
 
     public boolean prevents(String action) {
         return prevented.contains(action);
+    }
+
+    @EventHandler
+    public void onUserVanishStateChangeEvent(UserVanishStateChangeEvent event) {
+        Player player = event.user().onlinePlayer();
+        if (player == null) {
+            return;
+        }
+
+        PreventCapability capability = event.user().capability(VanishCapabilities.PREVENT);
+        if (capability != null && capability.prevents("entity_target")) {
+            if (event.newState()) {
+                for (Entity entity : player.getNearbyEntities(64, 64, 64)) {
+                    if (entity instanceof Mob mob) {
+                        if (player.equals(mob.getTarget())) {
+                            Scheduler.get().run(mob, task -> mob.setTarget(null), null);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     @EventHandler
