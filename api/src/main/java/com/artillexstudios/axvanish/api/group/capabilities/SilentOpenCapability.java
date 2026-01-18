@@ -4,7 +4,6 @@ import com.artillexstudios.axapi.packet.ClientboundPacketTypes;
 import com.artillexstudios.axapi.packet.PacketEvent;
 import com.artillexstudios.axapi.packet.PacketEvents;
 import com.artillexstudios.axapi.packet.PacketListener;
-import com.artillexstudios.axapi.packet.wrapper.clientbound.ClientboundSoundWrapper;
 import com.artillexstudios.axapi.scheduler.Scheduler;
 import com.artillexstudios.axapi.utils.logging.LogUtils;
 import com.artillexstudios.axapi.utils.position.ImmutableBlockPosition;
@@ -44,19 +43,6 @@ public final class SilentOpenCapability extends VanishCapability implements List
                     }
 
                     event.cancelled(true);
-                } else if (event.type() == ClientboundPacketTypes.SOUND) {
-                    try {
-                        ClientboundSoundWrapper wrapper = new ClientboundSoundWrapper(event);
-                        ImmutableBlockPosition pos = new ImmutableBlockPosition(wrapper.getX(), wrapper.getY(), wrapper.getZ());
-                        LogUtils.debug("Position: {}", pos);
-                        if (!silentViewers.contains(pos)) {
-                            return;
-                        }
-
-                        event.cancelled(true);
-                    } catch (Exception e) {
-                        // Ignore invalid packets
-                    }
                 }
             }
         });
