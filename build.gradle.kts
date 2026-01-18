@@ -35,7 +35,7 @@ subprojects {
     dependencies {
         implementation("com.artillexstudios.axapi:axapi:1.4.830:all")
         compileOnly("com.github.ben-manes.caffeine:caffeine:3.2.3")
-        compileOnly("io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT")
+        compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
         compileOnly("org.incendo:cloud-paper:2.0.0-beta.14")
         compileOnly("net.kyori:adventure-platform-bukkit:4.4.1")
         compileOnly("org.apache.commons:commons-lang3:3.20.0")

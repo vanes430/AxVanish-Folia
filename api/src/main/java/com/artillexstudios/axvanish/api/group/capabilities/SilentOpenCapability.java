@@ -45,14 +45,18 @@ public final class SilentOpenCapability extends VanishCapability implements List
 
                     event.cancelled(true);
                 } else if (event.type() == ClientboundPacketTypes.SOUND) {
-                    ClientboundSoundWrapper wrapper = new ClientboundSoundWrapper(event);
-                    ImmutableBlockPosition pos = new ImmutableBlockPosition(wrapper.getX(), wrapper.getY(), wrapper.getZ());
-                    LogUtils.debug("Position: {}", pos);
-                    if (!silentViewers.contains(pos)) {
-                        return;
-                    }
+                    try {
+                        ClientboundSoundWrapper wrapper = new ClientboundSoundWrapper(event);
+                        ImmutableBlockPosition pos = new ImmutableBlockPosition(wrapper.getX(), wrapper.getY(), wrapper.getZ());
+                        LogUtils.debug("Position: {}", pos);
+                        if (!silentViewers.contains(pos)) {
+                            return;
+                        }
 
-                    event.cancelled(true);
+                        event.cancelled(true);
+                    } catch (Exception e) {
+                        // Ignore invalid packets
+                    }
                 }
             }
         });

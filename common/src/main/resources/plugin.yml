@@ -1,7 +1,7 @@
 name: "AxVanish"
 main: "com.artillexstudios.axvanish.AxVanishPlugin"
 version: "${version}"
-api-version: "1.18"
+api-version: "1.21"
 folia-supported: true
 softdepend:
   - PlaceholderAPI
